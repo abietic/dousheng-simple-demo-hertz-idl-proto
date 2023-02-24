@@ -1,0 +1,99 @@
+syntax = "proto2";
+package douyin.extra.second;
+
+import "api.proto";
+import "common.proto";
+option go_package = "/extra/second";
+
+
+message DouyinMessageActionRequest {
+  required string token = 1[(api.query)="token"]; // 用户鉴权token
+  required int64 to_user_id = 2[(api.query)="to_user_id"]; // 对方用户id
+  required int32 action_type = 3[(api.query)="action_type"]; // 1-发送消息
+  required string content = 4[(api.query)="content"]; // 消息内容
+}
+
+message DouyinMessageActionResponse {
+  required int32 status_code = 1; // 状态码，0-成功，其他值-失败
+  optional string status_msg = 2; // 返回状态描述
+}
+
+message DouyinMessageChatRequest {
+    required string token = 1[(api.query)="token"]; // 用户鉴权token
+    required int64 to_user_id = 2[(api.query)="to_user_id"]; // 对方用户id
+    required int64 pre_msg_time=3[(api.query)="pre_msg_time"];//上次最新消息的时间（新增字段-apk更新中）
+}
+  
+message DouyinMessageChatResponse {
+    required int32 status_code = 1; // 状态码，0-成功，其他值-失败
+    optional string status_msg = 2; // 返回状态描述
+    repeated common.Message message_list = 3; // 消息列表
+}
+  
+message DouyinRelationActionRequest {
+    required string token = 1[(api.query)="token"]; // 用户鉴权token
+    required int64 to_user_id = 2[(api.query)="to_user_id"]; // 对方用户id
+    required int32 action_type = 3[(api.query)="action_type"]; // 1-关注，2-取消关注
+}
+  
+message DouyinRelationActionResponse {
+    required int32 status_code = 1; // 状态码，0-成功，其他值-失败
+    optional string status_msg = 2; // 返回状态描述
+}
+
+message DouyinRelationFollowListRequest {
+    required int64 user_id = 1[(api.query)="user_id"]; // 用户id
+    required string token = 2[(api.query)="token"]; // 用户鉴权token
+}
+  
+message DouyinRelationFollowListResponse {
+    required int32 status_code = 1; // 状态码，0-成功，其他值-失败
+    optional string status_msg = 2; // 返回状态描述
+    repeated common.User user_list = 3; // 用户信息列表
+}
+
+message DouyinRelationFollowerListRequest {
+    required int64 user_id = 1[(api.query)="user_id"]; // 用户id
+    required string token = 2[(api.query)="token"]; // 用户鉴权token
+}
+  
+message DouyinRelationFollowerListResponse {
+    required int32 status_code = 1; // 状态码，0-成功，其他值-失败
+    optional string status_msg = 2; // 返回状态描述
+    repeated common.User user_list = 3; // 用户列表
+}
+  
+message DouyinRelationFriendListRequest {
+    required int64 user_id = 1[(api.query)="user_id"]; // 用户id
+    required string token = 2[(api.query)="token"]; // 用户鉴权token
+}
+  
+message DouyinRelationFriendListResponse {
+    required int32 status_code = 1; // 状态码，0-成功，其他值-失败
+    optional string status_msg = 2; // 返回状态描述
+    repeated common.FriendUser user_list = 3; // 用户列表
+}
+
+service MessageSerivce {
+    rpc MessageActionHandler(DouyinMessageActionRequest) returns(DouyinMessageActionResponse) {
+        option (api.post) = "/douyin/message/action/";
+    }
+    rpc MessageChatHandler(DouyinMessageChatRequest) returns(DouyinMessageChatResponse) {
+        option (api.get) = "/douyin/message/chat/";
+    }
+}
+
+service RelationService {
+    rpc RelationActionHandler(DouyinRelationActionRequest) returns(DouyinRelationActionResponse) {
+        option (api.post) = "/douyin/relation/action/";
+    }
+    rpc FollowListHandler(DouyinRelationFollowListRequest) returns(DouyinRelationFollowListResponse) {
+        option (api.get) = "/douyin/relation/follow/list/";
+    }
+    rpc FollowerListHandler(DouyinRelationFollowerListRequest) returns(DouyinRelationFollowerListResponse) {
+        option (api.get) = "/douyin/relation/follower/list/";
+    }
+    rpc FriendListHandler(DouyinRelationFriendListRequest) returns(DouyinRelationFriendListResponse) {
+        option (api.get) = "/douyin/relation/friend/list/";
+    }
+}
