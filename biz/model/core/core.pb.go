@@ -9,10 +9,12 @@ package core
 import (
 	_ "dousheng/router/biz/model/api"
 	common "dousheng/router/biz/model/common"
-	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
-	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	"mime/multipart"
 	reflect "reflect"
 	sync "sync"
+
+	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
+	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 )
 
 const (
@@ -280,7 +282,7 @@ type DouyinPublishActionRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	Token *string `protobuf:"bytes,1,req,name=token" json:"token,required" form:"token,required"` // 用户鉴权token
-	// required bytes data = 2[(api.form)="data"]; // 视频数据
+	Data *multipart.FileHeader `form:"data,required"`// required bytes data = 2[(api.form)="data"]; // 视频数据
 	Title *string `protobuf:"bytes,3,req,name=title" json:"title,required" form:"title,required"` // 视频标题
 }
 

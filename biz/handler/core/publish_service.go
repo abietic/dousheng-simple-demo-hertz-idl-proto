@@ -37,14 +37,15 @@ func PublishActionHandler(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	data, err := c.FormFile("data")
-	if err != nil {
-		resp.StatusCode = &failStatusCode
-		errMsg := err.Error()
-		resp.StatusMsg = &errMsg
-		c.JSON(consts.StatusOK, resp)
-		return
-	}
+	// data, err := c.FormFile("data")
+	// if err != nil {
+	// 	resp.StatusCode = &failStatusCode
+	// 	errMsg := err.Error()
+	// 	resp.StatusMsg = &errMsg
+	// 	c.JSON(consts.StatusOK, resp)
+	// 	return
+	// }
+	data := req.Data
 
 	filename := filepath.Base(*req.Title)
 	user := UsersLoginInfo[*req.Token]
