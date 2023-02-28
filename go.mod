@@ -6,6 +6,7 @@ require (
 	github.com/RaymondCode/simple-demo v0.0.0-20230221080337-89b8c9434e04
 	github.com/cloudwego/hertz v0.5.2
 	github.com/gavv/httpexpect/v2 v2.13.0
+	github.com/hertz-contrib/pprof v0.1.0
 	github.com/stretchr/testify v1.7.0
 	google.golang.org/protobuf v1.28.1
 )
@@ -44,6 +45,7 @@ require (
 	github.com/nyaruka/phonenumbers v1.0.55 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/sanity-io/litter v1.5.5 // indirect
+	github.com/savsgio/gotils v0.0.0-20220530130905-52f3993e8d6d // indirect
 	github.com/sergi/go-diff v1.0.0 // indirect
 	github.com/tidwall/gjson v1.13.0 // indirect
 	github.com/tidwall/match v1.1.1 // indirect

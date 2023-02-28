@@ -3,12 +3,17 @@
 package main
 
 import (
+	"dousheng/router/biz/logger"
+
 	"github.com/cloudwego/hertz/pkg/app/server"
+	pprof "github.com/hertz-contrib/pprof"
 )
 
 func main() {
 	h := server.Default()
 
+	h.Use(logger.AccessLog())
+	pprof.Register(h)
 	register(h)
 	h.Spin()
 }
