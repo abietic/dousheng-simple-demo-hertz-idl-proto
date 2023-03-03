@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	h := server.Default()
+	h := server.Default(server.WithMaxRequestBodySize(20 << 20) /*20MB*/)
 
 	h.Use(logger.AccessLog())
 	pprof.Register(h)
